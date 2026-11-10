@@ -30,17 +30,55 @@
 
 \section{Scope of the Project}
 
-The project focuses on modeling a Turin Machine (TM), specifically a Multitape TM with two tapes: a read-only input tape and a work only input tape.
-Both tapes may have different alphabets.
-It is proven that Multitape TM reduce to single tape TM\cite{Intro-TOC-Sipser-1996} and it is easily seen that different alphabet for different tapes is reduced to a Multitape where in the working tape we simply never read or write symbols from the alphabet of the read-only tape.
+The project will focus on modeling a deterministic
+Turing machine (TM) with two tapes: a read-only
+input tape and a separate work tape. The tapes
+may have different alphabets. Multitape TMs can
+be simulated by single-tape TMs~\cite{Intro-TOC-Sipser-1996}, and allowing different tape alphabets does not
+increase the computational power of the model.
 
-The complexity measure we want to verify is the space complexity of a TM. Sipser\cite{Intro-TOC-Sipser-1996} defines the deterministic turning machine space complexity as: "Let $M$ be a deterministic Turing machine that halts on all inputs. The space complexity of $M$ is the function $f: \mathbb{N} \xrightarrow{} \mathbb{N},$ where $f(n)$ is the maximum number of tape cells that $M$ scans on any input of length $n$. If the space complexity of $M$ is $f(n)$, we also say that $M$ runs in space $f(n)$.
+The complexity measure we aim to formalize is
+the space complexity of a TM. Following the
+standard definition in~\cite{Intro-TOC-Sipser-1996}, space
+complexity measures the maximum number of tape
+cells scanned by a machine on inputs of a given
+length. In our model, only work-tape cells are
+counted, since the input tape is read-only.
 
-Once modeled we move into proving a series of theorems that will test the proposed modeling, finally proving the non-regular language requiring $O(\log \log n)$ space\cite{Lang-OneSymbAlph-LogLogn-HM-1975}
+
+Once the model is defined in Lean 4, we will
+prove correctness and complexity results for
+several algorithms, starting with simple
+components and progressing to the recognition
+algorithm described by Alt and
+Mehlhorn~\cite{Lang-OneSymbAlph-LogLogn-HM-1975}
+
+Our final objective is to formalize a Turing
+machine that decides a non-regular language
+over a unary alphabet using only
+$O(\log\log n)$ work space.
 
 \section{Modeling Idea \& Objectives}
 
-Modeling is the main task.
+The main goal of this project is to model a deterministic two-tape Turing machine in Lean 4. We will define its basic components, such as states, tape alphabets, transition functions, head positions, and configurations.
+
+The machine will have a read-only input tape containing the unary input $a^n$. and a separate work tape for computations. The work tape will store the current value of (q) and the remainder used to check divisibility. Following the algorithm by Alt and Mehlhorn ~\cite{Lang-OneSymbAlph-LogLogn-HM-1975}, the machine will keep increasing (q) and checking whether it divides the input length (n), until it finds the smallest number that does not divide (n).
+
+We will define how the machine moves from one configuration to another and how it eventually reaches an accepting or rejecting state.
+
+Another important part of the project is measuring how much space the machine uses. For this, we will count the number of different work-tape cells visited during execution. For a machine (M), we define its space complexity as
+
+\[
+S_M(n)=
+\max_{\substack{w\in\Sigma^*\\|w|=n}}
+\operatorname{space}_M(w),
+\]
+
+where $\operatorname{space}_M(w)$ is the number of work-tape cells visited when running (M) on input (w).
+
+Before implementing the main algorithm, we will test our model with simpler machines, such as input scanning and a binary counter. This will help us check that the model works correctly and allow us to reuse these components later.
+
+We will use Lean 4, together with Mathlib and CSLib where useful, and try to keep our definitions simple and reusable.
 
 \section{Algorithms \& Complexity Results}
 
@@ -63,7 +101,24 @@ Algorithm plus expected results
 \section{Additional Tasks}
 
 % TO IMPROVE and VERIFY
-If we see that the scope of the project is not sufficient, we can model and verify that the language is not regular by defining a finite automata and verify that the language is not accepted, or go through the pumping lemma.
+If time permits, we will also formalize a proof that the
+language recognized by our Turing machine is not regular.
+
+Following Alt and Mehlhorn~\cite{Lang-OneSymbAlph-LogLogn-HM-1975},
+we will define the language
+\[
+L = \{a^n \mid q(n) \text{ is a power of two}\},
+\]
+where $q(n)$ is the smallest positive integer that does
+not divide $n$.
+
+We aim to prove non-regularity using properties of unary
+regular languages, such as eventual periodicity, or
+alternatively through the pumping lemma.
+
+This would complement our main correctness and space
+complexity results by establishing that the language
+recognized in $O(\log\log n)$ space is indeed non-regular.
 
 % max up to page 3
 \newpage
