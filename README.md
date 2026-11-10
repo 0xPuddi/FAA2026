@@ -53,3 +53,15 @@ If you use Neovim, the [lean.nvim](https://github.com/julian/lean.nvim) plugin o
 ### Online Editor
 
 If the setup above doesn't work for you, you can write Lean code in the [online editor](https://live.lean-lang.org/). If you run into trouble with the installation, please ask a TA during one of the first exercise sessions.
+
+## Fork Repo
+
+### Upstream
+
+To make the branch up to date with the upstream
+
+```sh
+git fetch upstream
+git merge upstream/main
+git push origin <branch>
+```

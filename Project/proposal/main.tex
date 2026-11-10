@@ -1,0 +1,75 @@
+% Source - https://tex.stackexchange.com/a/219399
+% Posted by egreg, modified by community. See post 'Timeline' for change history
+% Retrieved 2026-11-10, License - CC BY-SA 3.0
+
+\documentclass[UTF8]{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{epstopdf}
+\usepackage{inputenc}
+\usepackage{geometry}
+\geometry{left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm}
+\usepackage{hyperref}
+\usepackage{amsfonts}
+
+\begin{document}
+
+\title{
+  A Non-Regular Language in $O(\log \log n)$ Space \\
+    \large
+        Formalizing Analysis of Algorithms \\
+        Project Proposal}
+
+\author{Jora Zeneli, Laura Kribben, Lasse Reith, Elia Riva}
+
+\date{13 November 2026}
+
+\maketitle
+\newpage
+
+\section{Scope of the Project}
+
+The project focuses on modeling a Turin Machine (TM), specifically a Multitape TM with two tapes: a read-only input tape and a work only input tape.
+Both tapes may have different alphabets.
+It is proven that Multitape TM reduce to single tape TM\cite{Intro-TOC-Sipser-1996} and it is easily seen that different alphabet for different tapes is reduced to a Multitape where in the working tape we simply never read or write symbols from the alphabet of the read-only tape.
+
+The complexity measure we want to verify is the space complexity of a TM. Sipser\cite{Intro-TOC-Sipser-1996} defines the deterministic turning machine space complexity as: "Let $M$ be a deterministic Turing machine that halts on all inputs. The space complexity of $M$ is the function $f: \mathbb{N} \xrightarrow{} \mathbb{N},$ where $f(n)$ is the maximum number of tape cells that $M$ scans on any input of length $n$. If the space complexity of $M$ is $f(n)$, we also say that $M$ runs in space $f(n)$.
+
+Once modeled we move into proving a series of theorems that will test the proposed modeling, finally proving the non-regular language requiring $O(\log \log n)$ space\cite{Lang-OneSymbAlph-LogLogn-HM-1975}
+
+\section{Modeling Idea \& Objectives}
+
+Modeling is the main task.
+
+\section{Algorithms \& Complexity Results}
+
+We will go over all algorithms that we will cover and state complexity results we wish to obtain.
+
+\subsection{Accessory Algorithms}
+
+Accessory algorithms plus expected results.
+Accessory algorithms should be the simplest algorithm possible that go over edge cases of the model, so that we can verify exactly that we modeled the problem correctly.
+
+\subsection{Preliminary Algorithms}
+
+Preliminary algorithms plus expected results.
+Preliminary algorithms should be medium to complex algorithms that bring some more 
+
+\subsection{Main Algorithm}
+
+Algorithm plus expected results
+
+\section{Additional Tasks}
+
+% TO IMPROVE and VERIFY
+If we see that the scope of the project is not sufficient, we can model and verify that the language is not regular by defining a finite automata and verify that the language is not accepted, or go through the pumping lemma.
+
+% max up to page 3
+\newpage
+
+% citations
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}
