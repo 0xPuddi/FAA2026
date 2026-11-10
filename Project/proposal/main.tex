@@ -34,7 +34,8 @@ The project will focus on modeling a deterministic
 Turing machine (TM) with two tapes: a read-only
 input tape and a separate work tape. The tapes
 may have different alphabets. Multitape TMs can
-be simulated by single-tape TMs~\cite{Intro-TOC-Sipser-1996}, and allowing different tape alphabets does not
+be simulated by single-tape TMs~\cite{Intro-TOC-Sipser-1996},
+and allowing different tape alphabets does not
 increase the computational power of the model.
 
 The complexity measure we aim to formalize is
@@ -60,9 +61,12 @@ $O(\log\log n)$ work space.
 
 \section{Modeling Idea \& Objectives}
 
-The main goal of this project is to model a deterministic two-tape Turing machine in Lean 4. We will define its basic components, such as states, tape alphabets, transition functions, head positions, and configurations.
+The main goal of this project is to model a deterministic two-tape Turing machine in Lean 4.
+We will define its basic components, such as states, tape alphabets, transition functions, head positions, and configurations.
 
-The machine will have a read-only input tape containing the unary input $a^n$. and a separate work tape for computations. The work tape will store the current value of (q) and the remainder used to check divisibility. Following the algorithm by Alt and Mehlhorn ~\cite{Lang-OneSymbAlph-LogLogn-HM-1975}, the machine will keep increasing (q) and checking whether it divides the input length (n), until it finds the smallest number that does not divide (n).
+The machine will have a read-only input tape containing the unary input $a^n$. and a separate work tape for computations.
+The work tape will store the current value of (q) and the remainder used to check divisibility.
+Following the algorithm by Alt and Mehlhorn ~\cite{Lang-OneSymbAlph-LogLogn-HM-1975}, the machine will keep increasing (q) and checking whether it divides the input length (n), until it finds the smallest number that does not divide (n).
 
 We will define how the machine moves from one configuration to another and how it eventually reaches an accepting or rejecting state.
 
@@ -76,7 +80,8 @@ S_M(n)=
 
 where $\operatorname{space}_M(w)$ is the number of work-tape cells visited when running (M) on input (w).
 
-Before implementing the main algorithm, we will test our model with simpler machines, such as input scanning and a binary counter. This will help us check that the model works correctly and allow us to reuse these components later.
+Before implementing the main algorithm, we will test our model with simpler machines, such as input scanning and a binary counter.
+This will help us check that the model works correctly and allow us to reuse these components later.
 
 We will use Lean 4, together with Mathlib and CSLib where useful, and try to keep our definitions simple and reusable.
 
@@ -86,17 +91,92 @@ We will go over all algorithms that we will cover and state complexity results w
 
 \subsection{Accessory Algorithms}
 
-Accessory algorithms plus expected results.
-Accessory algorithms should be the simplest algorithm possible that go over edge cases of the model, so that we can verify exactly that we modeled the problem correctly.
+Accessory algorithms should be simplest algorithms possible that go over edge cases of the model, so that we can verify exactly that we modeled the problem correctly.
+The expected space complexity of all algorithms should be $O(1)$.
+Algorithms are:
+
+\begin{itemize}
+  \item Even number of symbols
+
+    \[
+    L_1 = \{ a^{2k} | k \geq 0 \}
+    \]
+
+  \item Even number of ones
+  
+    \[
+    L_2 = \{w \in \{0,1\}^* \mid \#_1(w) \equiv 0 \pmod 2\}.
+    \]
+
+  \item Contains the substring 101
+
+    \[
+    L_2 = \{w \in \{0,1\}^* \mid \#_1(w) \equiv 0 \pmod 2\}.
+    \]
+
+  \item Strings containing the substring 101
+
+  \[
+  L_3 = \{w \in \{0,1\}^* \mid 101 \text{ occurs in } w\}.
+  \]
+
+  \item Strings starting with 1 and ending with 0
+
+  \[
+  L_4 = \{w \in \{0,1\}^* \mid w \text{ starts with } 1
+  \text{ and ends with } 0\}.
+  \]
+\end{itemize}
 
 \subsection{Preliminary Algorithms}
 
-Preliminary algorithms plus expected results.
-Preliminary algorithms should be medium to complex algorithms that bring some more 
+Preliminary algorithms should be medium to complex algorithms that bring some more tests on whether we did a good job 
+The expected space complexity of all algorithms should be $O(\log n)$.
+
+\begin{itemize}
+  \item Balanced parentheses
+
+    \[
+    L_5 =
+    \left\{
+    w \in \{(,)\}^*
+    \;\middle|\;
+    w \text{ is a balanced-parentheses string}
+    \right\}.
+    \]
+
+  \item Palindromes
+
+  \[
+  L_6 =
+  \{w \in \{0,1\}^* \mid w = w^R\}.
+  \]
+
+  \item Equality of binary strings
+
+  \[
+  L_7 =
+  \{x\#y \mid x,y \in \{0,1\}^*,\; x=y\}.
+  \]
+\end{itemize}
 
 \subsection{Main Algorithm}
 
-Algorithm plus expected results
+We provide a proof for the Alt Mehlhorn language
+
+\[
+L_{\mathrm{AM}}
+=
+\left\{
+a^n
+\;\middle|\;
+\begin{array}{l}
+\text{the smallest positive integer } q
+\text{ such that } q \nmid n\\
+\text{is a power of two}
+\end{array}
+\right\}.
+\]
 
 \section{Additional Tasks}
 
@@ -106,9 +186,11 @@ language recognized by our Turing machine is not regular.
 
 Following Alt and Mehlhorn~\cite{Lang-OneSymbAlph-LogLogn-HM-1975},
 we will define the language
+
 \[
 L = \{a^n \mid q(n) \text{ is a power of two}\},
 \]
+
 where $q(n)$ is the smallest positive integer that does
 not divide $n$.
 
