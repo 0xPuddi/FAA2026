@@ -31,7 +31,7 @@
 \section{Scope of the Project}
 
 \subsection{Space Complexity}
-
+\emph{Option one:} \\
 The project will focus on modeling a deterministic
 Turing machine (TM) with two tapes: a read-only
 input tape and a separate work tape. The tapes
@@ -58,7 +58,19 @@ Mehlhorn~\cite{Lang-OneSymbAlph-LogLogn-HM-1975}
 Our final objective is to formalize a Turing
 machine that decides a non-regular language
 over a unary alphabet using only
-$O(\log\log n)$ work space.
+$O(\log\log n)$ work space. \\
+
+\noindent
+\emph{Option two: (if we are using the library)} \\
+
+$L_1$ is non-regular language over an unary alphabet. 
+We define $L_1$ in terms of the helper function $q(n)$. The language consists of all words $a^n$ such that the smallest integer that does not divide n is a power of two.
+$$\displaystyle {q(n) := \min\{ k\in\mathbb N^+ \mid k\nmid n\}} \qquad \qquad  L_1 = \{a^n | \exists i \in \mathbb N : q(n) = 2^i  \}$$
+The primary objective of this project is to formalize and prove the theorem presented in ...,
+%[Alt und Mehlwurm (shoutout) (1975)](https://dl.acm.org/doi/10.1145/990502.990506), 
+which is that: 
+
+$L_1$ is non-regular and can be decided in $O(\log \log n)$ space, where n is the length of the input.
 
 \subsection{Non-Regular Proof}
 
