@@ -30,6 +30,8 @@
 
 \section{Scope of the Project}
 
+\subsection{Space Complexity}
+
 The project will focus on modeling a deterministic
 Turing machine (TM) with two tapes: a read-only
 input tape and a separate work tape. The tapes
@@ -46,7 +48,6 @@ cells scanned by a machine on inputs of a given
 length. In our model, only work-tape cells are
 counted, since the input tape is read-only.
 
-
 Once the model is defined in Lean 4, we will
 prove correctness and complexity results for
 several algorithms, starting with simple
@@ -58,6 +59,29 @@ Our final objective is to formalize a Turing
 machine that decides a non-regular language
 over a unary alphabet using only
 $O(\log\log n)$ work space.
+
+\subsection{Non-Regular Proof}
+
+We will also formalize a proof that theclanguage recognized by our Turing machine is not regular.
+
+Following Alt and Mehlhorn~\cite{Lang-OneSymbAlph-LogLogn-HM-1975},
+we will define the language
+
+\[
+L = \{a^n \mid q(n) \text{ is a power of two}\},
+\]
+
+where $q(n)$ is the smallest positive integer that does
+not divide $n$.
+
+We aim to prove non-regularity using properties of unary
+regular languages, such as eventual periodicity, or
+alternatively through the pumping lemma.
+
+This would complement our main correctness and space
+complexity results by establishing that the language
+recognized in $O(\log\log n)$ space is indeed non-regular.
+
 
 \section{Modeling Idea \& Objectives}
 
@@ -177,30 +201,6 @@ a^n
 \end{array}
 \right\}.
 \]
-
-\section{Additional Tasks}
-
-% TO IMPROVE and VERIFY
-If time permits, we will also formalize a proof that the
-language recognized by our Turing machine is not regular.
-
-Following Alt and Mehlhorn~\cite{Lang-OneSymbAlph-LogLogn-HM-1975},
-we will define the language
-
-\[
-L = \{a^n \mid q(n) \text{ is a power of two}\},
-\]
-
-where $q(n)$ is the smallest positive integer that does
-not divide $n$.
-
-We aim to prove non-regularity using properties of unary
-regular languages, such as eventual periodicity, or
-alternatively through the pumping lemma.
-
-This would complement our main correctness and space
-complexity results by establishing that the language
-recognized in $O(\log\log n)$ space is indeed non-regular.
 
 % max up to page 3
 \newpage
