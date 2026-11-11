@@ -27,11 +27,34 @@
 
 \maketitle
 \newpage
+\section{Motivation}
+Iwama and Kazuo ~\cite{iwamaregular} showed that every language that is decidable in $o(\log \log n)$ space is regular. 
+Thus, for every non regular language, an algorithm deciding it requires a minimum space complexity of $O(\log \log n)$.
+% Thus the smallest possible space complexity for deciding a non regular language is $O(\log \log n)$. % not precise enough
+%ideas
+% Therefore, deciding a non regular language requires at least $O(\log \log n) space complexity$
+% Es kann keine nicht reguläre Sprache geben, dessen Entscheidungsalgorithmus weniger als O(\log \log n) Platz benötigt. 
+% For every non regular language, a 
+Alt and Mehlhorn~\cite{Lang-OneSymbAlph-LogLogn-HM-1975} present a unary non regular language $L$ that is decidable in $O(\log \log n)$ space. 
+This project aims at reproducing the papers proof, by constructing a turing machine that decides $L$ and takes the proposed space.
+
+According to the paper, $L$ is the language that consists of all words $a^n$ such that the smallest integer that does not divide n is a power of two.
+We define $L_1$ in terms of the helper function $q(n)$:
+$$ {q(n) := \min\{ k\in\mathbb N^+ \mid k\nmid n\}}, \qquad \qquad  L_1 := \{a^n | \exists i \in \mathbb N : q(n) = 2^i  \}.$$
+
+%$L_1$ is a non-regular language over a unary alphabet. 
+%We define $L_1$ in terms of the helper function $q(n)$. The language consists of all words $a^n$ such that the smallest integer that does not divide n is a power of two.
+%$$\displaystyle {q(n) := \min\{ k\in\mathbb N^+ \mid k\nmid n\}} \qquad \qquad  L_1 = \{a^n | \exists i \in \mathbb N : q(n) = 2^i  \}$$
+%The primary objective of this project is to formalize and prove the theorem presented in ...,
+%[Alt und Mehlwurm (shoutout) (1975)](https://dl.acm.org/doi/10.1145/990502.990506), 
+%which is that: 
+
+%$L_1$ is non-regular and can be decided in $O(\log \log n)$ space, where n is the length of the input.
 
 \section{Scope of the Project}
 
+
 \subsection{Space Complexity}
-\emph{Option one:} \\
 The project will focus on modeling a deterministic
 Turing machine (TM) with two tapes: a read-only
 input tape and a separate work tape. The tapes
@@ -60,17 +83,6 @@ machine that decides a non-regular language
 over a unary alphabet using only
 $O(\log\log n)$ work space. \\
 
-\noindent
-\emph{Option two: (if we are using the library)} \\
-
-$L_1$ is non-regular language over an unary alphabet. 
-We define $L_1$ in terms of the helper function $q(n)$. The language consists of all words $a^n$ such that the smallest integer that does not divide n is a power of two.
-$$\displaystyle {q(n) := \min\{ k\in\mathbb N^+ \mid k\nmid n\}} \qquad \qquad  L_1 = \{a^n | \exists i \in \mathbb N : q(n) = 2^i  \}$$
-The primary objective of this project is to formalize and prove the theorem presented in ...,
-%[Alt und Mehlwurm (shoutout) (1975)](https://dl.acm.org/doi/10.1145/990502.990506), 
-which is that: 
-
-$L_1$ is non-regular and can be decided in $O(\log \log n)$ space, where n is the length of the input.
 
 \subsection{Non-Regular Proof}
 
@@ -126,9 +138,9 @@ We will use Lean 4, together with Mathlib and CSLib where useful, and try to kee
 We break down the TM into smaller algorithms that, when combined, decide $L_{AM}$.
 
 \subsection{Component TMs}
-Each component TM either implements a function and stores its result on the work tape or
-tests a predicate. We write $\operatorname{bin}(q)$ for the chosen binary representation
-of $q$ on the work tape.
+Each component TM either implements a function and stores its result on the work tape or tests a predicate. 
+To simplify the later composition, all component TMs use the same tape architecture as the final machine: one read-only input tape and one work tape.
+We write $\operatorname{bin}(q)$ for the chosen binary representation of $q$ on the work tape.
 
 \begin{itemize}
   \item \textbf{IncrementByOne:}
