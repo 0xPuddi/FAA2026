@@ -1,0 +1,14 @@
+
+
+\begin{tikzpicture}[node distance=1.5cm, >=stealth,
+                    lbl/.style={font=\small}]
+  \node (start)                            {$n,q=1$};
+  \node (succ)    [right=0.5cm of start]   {$\mathrm{succ}$};
+  \node (divides) [right=of succ]          {$\mathrm{divides}$};
+  \node (pow2)    [right=of divides]       {$\mathrm{pow2}$};
+
+  \draw[->] (start) -- (succ);
+  \draw[->] (succ)    to[bend left=20] node[lbl, above] {accept, reject} (divides);
+  \draw[->] (divides) to[bend left=20] node[lbl, below]               {accept}           (succ);
+  \draw[->] (divides) -- node[lbl, above] {reject} (pow2);
+\end{tikzpicture}
